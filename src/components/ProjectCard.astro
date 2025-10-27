@@ -1,0 +1,30 @@
+
+---
+const { title, coauthors = [], venue, year, abstract } = Astro.props as {
+  title: string;
+  coauthors?: string[];
+  venue?: string;
+  year?: string | number;
+  abstract: string;
+};
+---
+<article class="rounded-2xl border border-zinc-200 p-4 shadow-sm">
+  <header class="space-y-1">
+    <h3 class="text-lg font-semibold">{title}</h3>
+    <p class="text-sm text-zinc-600">
+      {coauthors.length ? <>with {coauthors.join(", ")}</> : null}
+      {venue && <> • {venue}</>}
+      {year && <> • {year}</>}
+    </p>
+  </header>
+
+  <details class="mt-3 group">
+    <summary
+      class="cursor-pointer select-none text-sm underline decoration-zinc-300 hover:decoration-zinc-600 marker:text-transparent">
+      Show abstract
+    </summary>
+    <p class="mt-2 text-sm text-zinc-800">
+      {abstract}
+    </p>
+  </details>
+</article>

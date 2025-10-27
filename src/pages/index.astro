@@ -1,11 +1,56 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Sidebar from "../components/Sidebar.astro";
+import Section from "../components/Section.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/projects";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const me = {
+  name: "Agustín Faure",
+  title: "PhD Candidate in Economics, LMU Munich",
+  email: "agustin.faure@zew.de",
+  location: "Munich, Germany",
+  photoUrl: "/avatar.jpg", // place a file at public/avatar.jpg
+  links: [
+    { label: "CV (PDF)", href: "/cv.pdf" },
+    { label: "Google Scholar", href: "https://scholar.google.com/" },
+    { label: "GitHub", href: "https://github.com/yourusername" },
+    { label: "Twitter/X", href: "https://x.com/yourhandle" },
+  ],
+};
 ---
+<BaseLayout title="Agustín Faure – Research">
+  <!-- 2-col layout: main content + right sticky sidebar -->
+  <div class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px]">
+    <!-- center/main column -->
+    <div class="space-y-12">
+      <Section id="bio" title="Bio">
+        <p>
+          I am a PhD candidate in Economics at LMU Munich. My research sits at the
+          intersection of structural microeconometrics, political economy, and state capacity.
+          I build and estimate models using administrative microdata to study selection,
+          incentives, and institutional design.
+        </p>
+      </Section>
 
-<Layout>
-	<Welcome />
-</Layout>
+      <Section id="interests" title="Research interests">
+        <ul>
+          <li>Dynamic careers, learning, and monopsony</li>
+          <li>State capacity, public administration, organizational design</li>
+          <li>Migration, internal mobility, and retention</li>
+          <li>Structural estimation, hazard models, counterfactuals</li>
+        </ul>
+      </Section>
+
+      <Section id="projects" title="Selected projects">
+        <div class="space-y-4">
+          {projects.map(p => <ProjectCard {...p} />)}
+        </div>
+      </Section>
+    </div>
+
+    <!-- right sidebar -->
+    <Sidebar {...me} />
+  </div>
+</BaseLayout>

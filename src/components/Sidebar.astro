@@ -1,0 +1,35 @@
+
+---
+const { name, title, email, location, photoUrl, links = [] } = Astro.props as {
+  name: string;
+  title?: string;
+  email?: string;
+  location?: string;
+  photoUrl?: string;
+  links?: { label: string; href: string }[];
+};
+---
+<aside class="lg:sticky lg:top-8 lg:h-fit">
+  <div class="flex lg:block items-center gap-4">
+    {photoUrl && (
+      <img src={photoUrl} alt={name}
+        class="h-24 w-24 lg:h-40 lg:w-40 rounded-2xl object-cover shadow" />
+    )}
+    <div class="space-y-1">
+      <h1 class="text-2xl lg:text-3xl font-bold">{name}</h1>
+      {title && <p class="text-zinc-600">{title}</p>}
+    </div>
+  </div>
+
+  <div class="mt-4 space-y-1 text-sm text-zinc-700">
+    {email && <p><a class="underline decoration-zinc-300 hover:decoration-zinc-600" href={`mailto:${email}`}>{email}</a></p>}
+    {location && <p>{location}</p>}
+    {links.length > 0 && (
+      <ul class="mt-2 space-y-1">
+        {links.map(l => (
+          <li><a class="underline decoration-zinc-300 hover:decoration-zinc-600" href={l.href} target="_blank" rel="noreferrer">{l.label}</a></li>
+        ))}
+      </ul>
+    )}
+  </div>
+</aside>
